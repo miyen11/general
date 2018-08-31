@@ -1,5 +1,9 @@
 package com.example.jazch.generalapp.menu;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,10 +19,11 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.jazch.generalapp.R;
-import com.example.jazch.generalapp.httpHandler.httpHandler;
 
 public class menuLateral extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, geolocalizationGPS.OnFragmentInteractionListener {
+
+    public geolocalizationGPS geolocalizationGPS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,8 @@ public class menuLateral extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -86,10 +93,10 @@ public class menuLateral extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            httpHandler httpHandler = new httpHandler();
-            Toast.makeText(this, ""+httpHandler.get(), Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.nav_gallery) {
 
+        } else if (id == R.id.nav_gallery) {
+            Intent intent = new Intent(this,MapsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
@@ -103,5 +110,15 @@ public class menuLateral extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void mostrarString(String name) {
+        Toast.makeText(this, "el nombre es "+name, Toast.LENGTH_SHORT).show();
     }
 }
